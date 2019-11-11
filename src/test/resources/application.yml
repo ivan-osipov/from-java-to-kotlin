@@ -1,0 +1,7 @@
+app:
+  robotNameTemplate: "Test Prefix: %s"
+
+spring:
+  data:
+    mongodb:
+      database: fromjavatokotlin-test-db

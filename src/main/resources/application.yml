@@ -1,0 +1,13 @@
+server:
+  port: 9191
+
+app:
+  robotNameTemplate: "Robot: %s"
+
+spring:
+  data:
+    mongodb:
+      database: fromjavatokotlin
+logging:
+  level:
+    fromjavatokotlin: debug
