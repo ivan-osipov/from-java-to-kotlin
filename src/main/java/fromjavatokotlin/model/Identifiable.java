@@ -10,6 +10,5 @@ import static fromjavatokotlin.constant.DocumentConstants.ID_FIELD;
 public class Identifiable {
 
   @Id
-  @Field(ID_FIELD)
   private String id;
 }

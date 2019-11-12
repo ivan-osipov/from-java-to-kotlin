@@ -7,6 +7,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest
 import org.springframework.context.annotation.Import
@@ -62,7 +63,7 @@ class `2_ServiceTests` {
 
     @Test
     fun `throws NPE on adding ability for robot with null id`() {
-        assertThrows(NullPointerException::class.java) {
+        assertThrows<NullPointerException> {
             robotService.addAbility(null, Robot.Ability("new"))
         }
     }
