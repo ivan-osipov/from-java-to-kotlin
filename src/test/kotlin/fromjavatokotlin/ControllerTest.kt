@@ -16,7 +16,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class `4_ControllerTests` {
+class ControllerTest {
 
     @Autowired
     lateinit var robotMongoRepo: RobotMongoRepo

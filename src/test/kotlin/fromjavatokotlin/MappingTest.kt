@@ -16,10 +16,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 
 @ExtendWith(SpringExtension::class)
 @ContextConfiguration(
-        classes = [ModelMapperConfig::class, `5_MappingTests`.ConfigurationPropertiesConfig::class],
+        classes = [ModelMapperConfig::class, MappingTest.ConfigurationPropertiesConfig::class],
         initializers = [ConfigFileApplicationContextInitializer::class]
 )
-class `5_MappingTests` {
+class MappingTest {
 
     @Autowired
     lateinit var modelMapper: ModelMapper

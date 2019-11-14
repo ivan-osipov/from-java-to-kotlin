@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Import
 
 @DataMongoTest
 @Import(RobotService::class)
-class `2_ServiceTests` {
+class ServiceTest {
 
     @Autowired
     lateinit var robotService: RobotService

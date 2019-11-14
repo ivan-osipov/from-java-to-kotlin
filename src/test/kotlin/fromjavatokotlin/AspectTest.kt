@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 import org.mockito.Mockito.*
 
 @Suppress("UNCHECKED_CAST")
-class `3_AspectTests` {
+class AspectTest {
 
     @Test
     fun `logs aspect is not failed on empty params`() {
