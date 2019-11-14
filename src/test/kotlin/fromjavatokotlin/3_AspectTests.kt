@@ -10,7 +10,7 @@ import org.mockito.Mockito.*
 class `3_AspectTests` {
 
     @Test
-    fun `logs does not fail on empty params`() {
+    fun `logs aspect is not failed on empty params`() {
         val mock = mock(JoinPoint::class.java, RETURNS_DEEP_STUBS)
         `when`(mock.target.javaClass).thenReturn(RobotService::class.java as Class<Any>)
         `when`(mock.signature.name).thenReturn("testMethod")
@@ -21,7 +21,7 @@ class `3_AspectTests` {
     }
 
     @Test
-    fun `logs does not fail on null params`() {
+    fun `logs aspect is not failed on null params`() {
         val mock = mock(JoinPoint::class.java, RETURNS_DEEP_STUBS)
         `when`(mock.target.javaClass).thenReturn(RobotService::class.java as Class<Any>)
         `when`(mock.signature.name).thenReturn("testMethod")
@@ -32,7 +32,7 @@ class `3_AspectTests` {
     }
 
     @Test
-    fun `logs does not fail on different type params`() {
+    fun `logs aspect is not failed on different type params`() {
         val mock = mock(JoinPoint::class.java, RETURNS_DEEP_STUBS)
         `when`(mock.target.javaClass).thenReturn(RobotService::class.java as Class<Any>)
         `when`(mock.signature.name).thenReturn("testMethod")
