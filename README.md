@@ -1,7 +1,7 @@
 From Java to Kotlin
 ===
 
-###Steps to reproduce:
+### Steps to reproduce:
 1. Migrate Repositories
 2. Migrate Constants
 3. Migrate Configs & Props
@@ -10,5 +10,5 @@ From Java to Kotlin
 6. Migrate Controllers
 7. Migrate Main class and remove redundant dependencies
 
-###Bonus:
+### Bonus:
 Migrate your build.gradle file to build.gradle.kts
