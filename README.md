@@ -8,6 +8,7 @@ From Java to Kotlin
 4. Migrate Subdomains (models + mappings + dto)
 5. Migrate Services
 6. Migrate Controllers
+7. Migrate Main class and remove redundant dependencies
 
 ###Bonus:
 Migrate your build.gradle file to build.gradle.kts

@@ -1,7 +1,6 @@
 plugins {
     id("org.springframework.boot") version "2.2.4.RELEASE"
     id("io.spring.dependency-management") version "1.0.9.RELEASE"
-    java
     kotlin("jvm") version "1.3.61"
     kotlin("plugin.spring") version "1.3.61"
     kotlin("plugin.allopen") version "1.3.61"
@@ -30,9 +29,7 @@ dependencies {
     implementation(openapi("webmvc-core", "1.2.30"))
     implementation(openapi("ui", "1.2.30"))
     implementation(openapi("security", "1.2.30"))
-    compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
-    annotationProcessor("org.projectlombok:lombok")
     testImplementation(springBootStarter("test")) {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }
