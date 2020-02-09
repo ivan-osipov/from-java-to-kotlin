@@ -49,15 +49,15 @@ class ServiceTest {
     fun `adds ability to robot`() {
         val preSavedAvailableRobot = robotMongoRepo.save(Robot("robot", 1, true, emptyList()))
         robotService.addAbility(preSavedAvailableRobot.id, Robot.Ability("new"))
-        val savedRobot = robotMongoRepo.findById(preSavedAvailableRobot.id).get()
+        val savedRobot = robotMongoRepo.findById(preSavedAvailableRobot.id!!).get()
         assertThat(savedRobot.abilities).containsExactly(Robot.Ability("new"))
     }
 
     @Test
     fun `updates availability of a robot`() {
         val preSavedAvailableRobot = robotMongoRepo.insert(Robot("robot", 1, true, emptyList()))
-        robotService.updateAvailability(preSavedAvailableRobot.id, false)
-        val savedRobot = robotMongoRepo.findById(preSavedAvailableRobot.id).get()
+        robotService.updateAvailability(preSavedAvailableRobot.id!!, false)
+        val savedRobot = robotMongoRepo.findById(preSavedAvailableRobot.id!!).get()
         assertThat(savedRobot.availability).isFalse()
     }
 

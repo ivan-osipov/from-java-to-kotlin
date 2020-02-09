@@ -1,15 +1,18 @@
 package fromjavatokotlin.controller;
 
+import fromjavatokotlin.config.props.NameGenerationProps;
 import fromjavatokotlin.controller.dto.RobotDto;
 import fromjavatokotlin.model.Robot;
 import fromjavatokotlin.service.RobotService;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static fromjavatokotlin.controller.MappingsKt.toDto;
+import static fromjavatokotlin.controller.MappingsKt.toModel;
 
 @RestController
 @RequestMapping("/robots")
@@ -18,15 +21,14 @@ public class RobotController {
 
   private final RobotService robotService;
 
-  private final ModelMapper modelMapper;
+  private final NameGenerationProps props;
 
   @GetMapping
   public List<RobotDto> findAll(
       @RequestParam(value = "onlyAvailable", defaultValue = "true") boolean onlyAvailable
   ) {
     List<Robot> robots = onlyAvailable ? robotService.findOnlyAvailable() : robotService.findAll();
-    return modelMapper.map(robots, new TypeToken<List<RobotDto>>() {
-    }.getType());
+    return robots.stream().map((r) -> toDto(r, props.getRobotNameTemplate())).collect(Collectors.toList());
   }
 
   @Deprecated
@@ -48,7 +50,7 @@ public class RobotController {
       @PathVariable String id,
       @Valid @RequestBody RobotDto.AbilityDto abilityDto
   ) {
-    Robot.Ability ability = modelMapper.map(abilityDto, Robot.Ability.class);
+    Robot.Ability ability = toModel(abilityDto);
     robotService.addAbility(id, ability);
   }
 }

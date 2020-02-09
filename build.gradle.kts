@@ -26,7 +26,6 @@ dependencies {
     implementation(springBootStarter("data-mongodb"))
     implementation(springBootStarter("web"))
     implementation(springBootStarter("aop"))
-    implementation("org.modelmapper:modelmapper:2.3.4")
     implementation("com.google.guava:guava:28.2-jre")
     implementation(openapi("webmvc-core", "1.2.30"))
     implementation(openapi("ui", "1.2.30"))
