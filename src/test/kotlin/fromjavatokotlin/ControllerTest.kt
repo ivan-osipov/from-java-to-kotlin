@@ -96,7 +96,7 @@ class ControllerTest {
         mockMvc.perform(
                 post("/robots/{id}/abilities", savedRobot.id)
                         .content("""{"code":"grasp"}""")
-                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(status().isOk)
 
         val reloadedRobot = robotMongoRepo.findById(savedRobot.id).get()
@@ -110,7 +110,7 @@ class ControllerTest {
         mockMvc.perform(
                 post("/robots/{id}/abilities", savedRobot.id)
                         .content("""{"code":"  "}""")
-                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(status().isBadRequest)
     }
 }
