@@ -106,7 +106,7 @@ class ControllerTest {
         mockMvc.perform(put("/robots/{id}/available/false", savedRobot.id))
             .andExpect(status().isOk)
 
-        val reloadedRobot = robotMongoRepo.findById(savedRobot.id).get()
+        val reloadedRobot = robotMongoRepo.findById(savedRobot.id!!).get()
         assertThat(reloadedRobot.availability).isFalse()
     }
 
@@ -128,7 +128,7 @@ class ControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(status().isOk)
 
-        val reloadedRobot = robotMongoRepo.findById(savedRobot.id).get()
+        val reloadedRobot = robotMongoRepo.findById(savedRobot.id!!).get()
         assertThat(reloadedRobot.abilities).containsExactly(Robot.Ability("grasp"))
     }
 

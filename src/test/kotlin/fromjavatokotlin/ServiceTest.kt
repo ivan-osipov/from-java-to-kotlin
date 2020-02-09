@@ -4,13 +4,13 @@ import fromjavatokotlin.model.Robot
 import fromjavatokotlin.repository.RobotMongoRepo
 import fromjavatokotlin.service.RobotService
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest
 import org.springframework.context.annotation.Import
+import java.util.*
 
 @DataMongoTest
 @Import(RobotService::class)
@@ -48,7 +48,7 @@ class ServiceTest {
     @Test
     fun `adds ability to robot`() {
         val preSavedAvailableRobot = robotMongoRepo.save(Robot("robot", 1, true, emptyList()))
-        robotService.addAbility(preSavedAvailableRobot.id, Robot.Ability("new"))
+        robotService.addAbility(preSavedAvailableRobot.id!!, Robot.Ability("new"))
         val savedRobot = robotMongoRepo.findById(preSavedAvailableRobot.id!!).get()
         assertThat(savedRobot.abilities).containsExactly(Robot.Ability("new"))
     }
@@ -63,8 +63,8 @@ class ServiceTest {
 
     @Test
     fun `throws NPE on adding ability for robot with null id`() {
-        assertThrows<NullPointerException> {
-            robotService.addAbility(null, Robot.Ability("new"))
+        assertThrows<IllegalStateException> {
+            robotService.addAbility(Optional.ofNullable(null).orElse(null), Robot.Ability("new"))
         }
     }
 
@@ -72,8 +72,8 @@ class ServiceTest {
     fun `throws NPE on adding NULL instead of ability`() {
         val preSavedAvailableRobot = robotMongoRepo.save(Robot("robot", 1, true, emptyList()))
 
-        assertThrows(NullPointerException::class.java) {
-            robotService.addAbility(preSavedAvailableRobot.id, null)
+        assertThrows<IllegalStateException> {
+            robotService.addAbility(preSavedAvailableRobot.id!!, Optional.ofNullable(null).orElse(null))
         }
     }
 }

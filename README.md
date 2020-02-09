@@ -6,6 +6,7 @@ From Java to Kotlin
 2. Migrate Constants
 3. Migrate Configs & Props
 4. Migrate Subdomains (models + mappings + dto)
+5. Migrate Services
 
 ###Bonus:
 Migrate your build.gradle file to build.gradle.kts
