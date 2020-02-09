@@ -9,16 +9,15 @@ import org.aspectj.lang.JoinPoint
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import org.slf4j.Logger
 
 @Suppress("UNCHECKED_CAST")
 @ExtendWith(MockKExtension::class)
 class AspectTest {
 
-    lateinit var jointPoint: JoinPoint
+    private lateinit var jointPoint: JoinPoint
 
     @BeforeEach
-    fun setUp(@RelaxedMockK jointPoint: JoinPoint, @RelaxedMockK logger: Logger) {
+    fun setUp(@RelaxedMockK jointPoint: JoinPoint) {
         every {
             jointPoint.target.javaClass
         } returns RobotService::class.java as Class<Any>
