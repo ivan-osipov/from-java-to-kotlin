@@ -1,3 +1,3 @@
 package fromjavatokotlin.util
 
-//typealias DeprecatedApi = java.lang.Deprecated
+typealias DeprecatedApi = java.lang.Deprecated
