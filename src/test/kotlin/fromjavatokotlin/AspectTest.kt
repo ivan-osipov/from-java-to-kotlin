@@ -2,43 +2,57 @@ package fromjavatokotlin
 
 import fromjavatokotlin.config.AspectConfig
 import fromjavatokotlin.service.RobotService
+import io.mockk.every
+import io.mockk.impl.annotations.RelaxedMockK
+import io.mockk.junit5.MockKExtension
 import org.aspectj.lang.JoinPoint
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.mockito.Mockito.*
+import org.junit.jupiter.api.extension.ExtendWith
+import org.slf4j.Logger
 
 @Suppress("UNCHECKED_CAST")
+@ExtendWith(MockKExtension::class)
 class AspectTest {
+
+    lateinit var jointPoint: JoinPoint
+
+    @BeforeEach
+    fun setUp(@RelaxedMockK jointPoint: JoinPoint, @RelaxedMockK logger: Logger) {
+        every {
+            jointPoint.target.javaClass
+        } returns RobotService::class.java as Class<Any>
+        every {
+            jointPoint.signature.name
+        } returns "testMethod"
+
+        this.jointPoint = jointPoint
+    }
 
     @Test
     fun `logs aspect is not failed on empty params`() {
-        val mock = mock(JoinPoint::class.java, RETURNS_DEEP_STUBS)
-        `when`(mock.target.javaClass).thenReturn(RobotService::class.java as Class<Any>)
-        `when`(mock.signature.name).thenReturn("testMethod")
+        every {
+            jointPoint.args
+        } returns emptyArray<Any>()
 
-        `when`(mock.args).thenReturn(emptyArray<Any>())
-
-        AspectConfig().log(mock)
+        AspectConfig().log(jointPoint)
     }
 
     @Test
     fun `logs aspect is not failed on null params`() {
-        val mock = mock(JoinPoint::class.java, RETURNS_DEEP_STUBS)
-        `when`(mock.target.javaClass).thenReturn(RobotService::class.java as Class<Any>)
-        `when`(mock.signature.name).thenReturn("testMethod")
+        every {
+            jointPoint.args
+        } returns arrayOf("abc", null)
 
-        `when`(mock.args).thenReturn(arrayOf("abc", null))
-
-        AspectConfig().log(mock)
+        AspectConfig().log(jointPoint)
     }
 
     @Test
     fun `logs aspect is not failed on different type params`() {
-        val mock = mock(JoinPoint::class.java, RETURNS_DEEP_STUBS)
-        `when`(mock.target.javaClass).thenReturn(RobotService::class.java as Class<Any>)
-        `when`(mock.signature.name).thenReturn("testMethod")
+        every {
+            jointPoint.args
+        } returns arrayOf("abc", arrayOf("abc", 42, 3.14))
 
-        `when`(mock.args).thenReturn(arrayOf("abc", 42, 3.14))
-
-        AspectConfig().log(mock)
+        AspectConfig().log(jointPoint)
     }
 }

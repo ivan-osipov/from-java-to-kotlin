@@ -26,27 +26,25 @@ repositories {
 }
 
 dependencies {
-//    implementation 'org.jetbrains.kotlin:kotlin-reflect'
-    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-aop'
-    implementation 'org.modelmapper:modelmapper:2.3.4'
-    implementation 'com.google.guava:guava:28.2-jre'
-    implementation 'org.springdoc:springdoc-openapi-webmvc-core:1.2.30'
-    implementation 'org.springdoc:springdoc-openapi-ui:1.2.30'
-//    implementation 'org.springdoc:springdoc-openapi-kotlin:1.2.30' // it helps to ignore Continuation in docs
-    implementation 'org.springdoc:springdoc-openapi-security:1.2.30'
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-    annotationProcessor 'org.projectlombok:lombok'
+//    implementation('org.jetbrains.kotlin:kotlin-reflect')
+    implementation('org.springframework.boot:spring-boot-starter-data-mongodb')
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.boot:spring-boot-starter-aop')
+    implementation('org.modelmapper:modelmapper:2.3.4')
+    implementation('com.google.guava:guava:28.2-jre')
+    implementation('org.springdoc:springdoc-openapi-webmvc-core:1.2.30')
+    implementation('org.springdoc:springdoc-openapi-ui:1.2.30')
+    implementation('org.springdoc:springdoc-openapi-security:1.2.30')
+    compileOnly('org.projectlombok:lombok')
+    annotationProcessor('org.springframework.boot:spring-boot-configuration-processor')
+    annotationProcessor('org.projectlombok:lombok')
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.2'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
-    testImplementation 'org.mockito:mockito-all:2.0.2-beta'
-//    testImplementation("io.mockk:mockk:1.9.3")
-    testImplementation 'org.jetbrains.kotlin:kotlin-stdlib'
+    testImplementation('org.junit.jupiter:junit-jupiter-api:5.5.2')
+    testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.5.2')
+    testImplementation("io.mockk:mockk:1.9.3")
+    testImplementation('org.jetbrains.kotlin:kotlin-stdlib')
 }
 
 compileTestKotlin {

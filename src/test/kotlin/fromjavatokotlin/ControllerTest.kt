@@ -32,8 +32,8 @@ class ControllerTest {
     @Test
     fun `finds empty robots list`() {
         mockMvc.perform(get("/robots"))
-                .andExpect(status().isOk)
-                .andExpect(content().json("[]"))
+            .andExpect(status().isOk)
+            .andExpect(content().json("[]"))
     }
 
     @Test
@@ -41,10 +41,18 @@ class ControllerTest {
         robotMongoRepo.insert(Robot("robot_1", 10, true, emptyList()))
         robotMongoRepo.insert(Robot("robot_2", 20, false, emptyList()))
         mockMvc.perform(get("/robots"))
-                .andExpect(status().isOk)
-                .andExpect(content().json("""[
-                    {'name':'robot_1', 'availability':true, 'displayName': 'Test Prefix: robot 1', 'mass': 10, 'abilities': [] }
-                ]"""))
+            .andExpect(status().isOk)
+            .andExpect(
+                content().json(
+                    """[{
+                            'name':'robot_1', 
+                            'availability':true, 
+                            'displayName': 'Test Prefix: robot 1', 
+                            'mass': 10, 
+                            'abilities': [] 
+                        }]"""
+                )
+            )
     }
 
     @Test
@@ -52,11 +60,24 @@ class ControllerTest {
         robotMongoRepo.insert(Robot("robot_1", 10, true, emptyList()))
         robotMongoRepo.insert(Robot("robot_2", 20, false, emptyList()))
         mockMvc.perform(get("/robots?onlyAvailable=false"))
-                .andExpect(status().isOk)
-                .andExpect(content().json("""[
-                    {'name':'robot_1', 'availability':true, 'displayName': 'Test Prefix: robot 1', 'mass': 10, 'abilities': [] },
-                    {'name':'robot_2', 'availability':false, 'displayName': 'Test Prefix: robot 2', 'mass': 20, 'abilities': [] }
-                ]"""))
+            .andExpect(status().isOk)
+            .andExpect(
+                content().json(
+                    """[{
+                            'name':'robot_1', 
+                            'availability':true, 
+                            'displayName': 'Test Prefix: robot 1', 
+                            'mass': 10, 
+                            'abilities': [] 
+                        }, {
+                            'name':'robot_2', 
+                            'availability':false, 
+                            'displayName': 'Test Prefix: robot 2', 
+                            'mass': 20, 
+                            'abilities': [] 
+                        }]"""
+                )
+            )
     }
 
     @Test
@@ -64,10 +85,18 @@ class ControllerTest {
         robotMongoRepo.insert(Robot("robot_1", 10, true, emptyList()))
         robotMongoRepo.insert(Robot("robot_2", 20, false, emptyList()))
         mockMvc.perform(get("/robots?onlyAvailable=true"))
-                .andExpect(status().isOk)
-                .andExpect(content().json("""[
-                    {'name':'robot_1', 'availability':true, 'displayName': 'Test Prefix: robot 1', 'mass': 10, 'abilities': [] }
-                ]"""))
+            .andExpect(status().isOk)
+            .andExpect(
+                content().json(
+                    """[{
+                            'name':'robot_1', 
+                            'availability':true, 
+                            'displayName': 'Test Prefix: robot 1', 
+                            'mass': 10, 
+                            'abilities': [] 
+                    }]""".trimMargin()
+                )
+            )
     }
 
     @Test
@@ -75,7 +104,7 @@ class ControllerTest {
         val savedRobot = robotMongoRepo.insert(Robot("robot_1", 10, true, emptyList()))
 
         mockMvc.perform(put("/robots/{id}/available/false", savedRobot.id))
-                .andExpect(status().isOk)
+            .andExpect(status().isOk)
 
         val reloadedRobot = robotMongoRepo.findById(savedRobot.id).get()
         assertThat(reloadedRobot.availability).isFalse()
@@ -86,7 +115,7 @@ class ControllerTest {
         val savedRobot = robotMongoRepo.insert(Robot("robot_1", 10, true, emptyList()))
 
         mockMvc.perform(put("/robots/{id}/available/abc", savedRobot.id))
-                .andExpect(status().isBadRequest)
+            .andExpect(status().isBadRequest)
     }
 
     @Test
@@ -94,9 +123,9 @@ class ControllerTest {
         val savedRobot = robotMongoRepo.insert(Robot("robot_1", 10, true, emptyList()))
 
         mockMvc.perform(
-                post("/robots/{id}/abilities", savedRobot.id)
-                        .content("""{"code":"grasp"}""")
-                        .contentType(MediaType.APPLICATION_JSON)
+            post("/robots/{id}/abilities", savedRobot.id)
+                .content("""{"code":"grasp"}""")
+                .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(status().isOk)
 
         val reloadedRobot = robotMongoRepo.findById(savedRobot.id).get()
@@ -108,9 +137,9 @@ class ControllerTest {
         val savedRobot = robotMongoRepo.insert(Robot("robot_1", 10, true, emptyList()))
 
         mockMvc.perform(
-                post("/robots/{id}/abilities", savedRobot.id)
-                        .content("""{"code":"  "}""")
-                        .contentType(MediaType.APPLICATION_JSON)
+            post("/robots/{id}/abilities", savedRobot.id)
+                .content("""{"code":"  "}""")
+                .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(status().isBadRequest)
     }
 }
