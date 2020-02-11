@@ -8,6 +8,7 @@ import io.mockk.junit5.MockKExtension
 import org.aspectj.lang.JoinPoint
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.extension.ExtendWith
 
 @Suppress("UNCHECKED_CAST")
@@ -30,28 +31,34 @@ class AspectTest {
 
     @Test
     fun `logs aspect is not failed on empty params`() {
-        every {
-            jointPoint.args
-        } returns emptyArray<Any>()
+        assertDoesNotThrow {
+            every {
+                jointPoint.args
+            } returns emptyArray<Any>()
 
-        AspectConfig().log(jointPoint)
+            AspectConfig().log(jointPoint)
+        }
     }
 
     @Test
     fun `logs aspect is not failed on null params`() {
-        every {
-            jointPoint.args
-        } returns arrayOf("abc", null)
+        assertDoesNotThrow {
+            every {
+                jointPoint.args
+            } returns arrayOf("abc", null)
 
-        AspectConfig().log(jointPoint)
+            AspectConfig().log(jointPoint)
+        }
     }
 
     @Test
     fun `logs aspect is not failed on different type params`() {
-        every {
-            jointPoint.args
-        } returns arrayOf("abc", arrayOf("abc", 42, 3.14))
+        assertDoesNotThrow {
+            every {
+                jointPoint.args
+            } returns arrayOf("abc", arrayOf("abc", 42, 3.14))
 
-        AspectConfig().log(jointPoint)
+            AspectConfig().log(jointPoint)
+        }
     }
 }
